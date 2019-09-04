@@ -17,21 +17,46 @@ function playGame(e) {
     } else {
         computerSelection = "Scissors";
     }
-    console.log(playerSelection, computerSelection);
+    console.log(`Player selected: ${playerSelection} | Computer selected: ${computerSelection}`);
 }
 
 playGame();
 
 function getWinner(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
+        console.log('A tie!');
         return "Draw";
     }
 
     if (playerSelection === "Rock") {
         if (computerSelection === "Paper") {
+            console.log('Computer wins!');
             return "Computer wins!";
         } else {
+            console.log('Player wins!');
+            return "Player wins!";
+        }
+    }
+
+    if (playerSelection === "Paper") {
+        if (computerSelection === "Scissors") {
+            console.log('Computer wins!');
+            return "Computer wins!";
+        } else {
+            console.log('Player wins!');
+            return "Player wins!";
+        }
+    }
+
+    if (playerSelection === "Scissors") {
+        if (computerSelection === "Rock") {
+            console.log('Computer wins!');
+            return "Computer wins!";
+        } else {
+            console.log('Player wins!');
             return "Player wins!";
         }
     }
 }
+
+getWinner();
