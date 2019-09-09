@@ -47,30 +47,24 @@ function getWinner(playerSelection, computerSelection) {
 
     if (playerSelection === "Rock") {
         if (computerSelection === "Paper") {
-            console.log('Computer wins!');
             return "Computer";
         } else {
-            console.log('Player wins!');
             return "Player";
         }
     }
 
     if (playerSelection === "Paper") {
         if (computerSelection === "Scissors") {
-            console.log('Computer wins!');
             return "Computer";
         } else {
-            console.log('Player wins!');
             return "Player";
         }
     }
 
     if (playerSelection === "Scissors") {
         if (computerSelection === "Rock") {
-            console.log('Computer wins!');
             return "Computer";
         } else {
-            console.log('Player wins!');
             return "Player";
         }
     }
