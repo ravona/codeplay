@@ -1,83 +1,98 @@
-let playersCount = document.getElementById("playersCount");
-let playersRoll = document.getElementById("playersRoll");
-let winner = document.getElementById("winner");
-const myButton = document.getElementById("roll");
-let numberOfPlayers = 0;
+const message = document.querySelector(".message");
+const gameArea = document.querySelector(".gameArea");
+const gameColors = ["red", "blue", "green", "yellow"];
+const button = document.querySelector(".button");
 
-function renderItem(element, data) {
-    // create a div for each data item and append it to an element
-    let item = document.createElement("div");
-    let itemContent = document.createTextNode(data);
-    item.appendChild(itemContent);
-    element.appendChild(item);
+let gameClicks = [];
+let userClicks = [];
+let inPlay = false;
+let playNum = 3;
+
+button.addEventListener("click", function () {
+    if (!inPlay) {
+        player();
+    }
+});
+
+function player() {
+    button.style.display = "none";
+    gameClicks = [];
+    userClicks = [];
+    runSequence(playNum);
 }
 
-// Declaring a roll function
-function roll(num) {
-    let rollNumber = Math.floor(Math.random() * num + 1);
-    return rollNumber;
-}
+function runSequence(num) {
+    let squares = document.querySelectorAll(".box");
+    num--;
 
-// Declaring a function that formats dice rolls to visual symbols using unicode
-function formatResult(rollNumber) {
-    let rollInUnicode = 9855 + rollNumber;
-    let rollInUnicodeFormatted = "&#" + rollInUnicode + ";";
-    return rollInUnicodeFormatted;
-}
-
-function resetGame() {
-    playersCount.innerHTML = "";
-    playersRoll.innerHTML = "";
-    winner.innerHTML = "";
-}
-
-function handleRollClick() {
-
-    if (!numberOfPlayers) {
-        numberOfPlayers = prompt("How many players?");
+    if (num < 0) {
+        inPlay = true;
+        return;
     }
 
-    const results = [];
-    let highestRoll = 0;
-    let winningPlayer;
-    resetGame();
+    let randomNum = Math.floor(Math.random() * gameColors.length);
+    gameClicks.push(gameColors[randomNum]);
+    console.log(gameClicks);
+    squares[randomNum].style.opacity = 1;
 
-    // rendering players count (left column)
-    // pushing roll results to an array
-    // this part does initial roll, so later further logic will be executed
-    for (let i = 1; i <= numberOfPlayers; i++) {
-        // create a div for each player inside playersCount
-        renderItem(playersCount, `Player ${i}`);
-
-        // create a div for each result inside playersRoll
-        //let itemRoll = document.createElement("div");
-
-        results.push(roll(6));
-        console.log(results);
-    }
-
-    for (let player = 0; player < results.length; player++) {
-        console.log(`${player} ${results[player]}`);
-        renderItem(playersRoll, results[player]);
-    }
-
-    let formattedResult = formatResult(result);
-    let result = document.createTextNode(result);
-
-    renderItem(playersRoll, result);
-    //renderItem(playersRoll, formattedResult);
-
-    // calculating winner
-    if (result > highestRoll) {
-        highestRoll = result;
-        winningPlayer = i;
-    } else if (result === highestRoll) {
-        winningPlayer = "No one";
-    }
-
-    let roundWinner = document.createTextNode("The winner is: Player " + winningPlayer);
-    winner.appendChild(roundWinner);
+    setTimeout(function () {
+        squares[randomNum].style.opacity = "0.5";
+        setTimeout(function () {
+            runSequence(num);
+        }, 100)
+    }, 500)
 }
 
-// Adding an event listener for our roll button
-myButton.addEventListener("click", handleRollClick);
+function setup() {
+    console.log("Page loaded");
+    for (let x = 0; x < gameColors.length; x++) {
+        let div = elementFactory("div");
+        div.classList.add("box");
+        div.style.opacity = "0.5";
+        div.style.backgroundColor = gameColors[x];
+        div.myColor = gameColors[x];
+        div.addEventListener("click", checkAnswer);
+        gameArea.appendChild(div);
+    }
+}
+
+function checkAnswer(e) {
+    if (inPlay) {
+        let el = e.target;
+        console.log(el.myColor);
+        userClicks.push(el.myColor);
+        console.log(userClicks);
+        el.style.opacity = "1";
+        setTimeout(function () {
+            el.style.opacity = "0.5";
+        }, 500);
+        if (userClicks.length === gameClicks.length) {
+            inPlay = false;
+            endGame();
+        }
+    }
+}
+
+function messanger(mes) {
+    message.innerHTML = mes;
+}
+
+function endGame() {
+    button.style.display = "block";
+    messanger("Game Over");
+
+    if (userClicks.toString() === gameClicks.toString()) {
+        playNum++;
+        messanger("Correct! You are at level " + playNum);
+    } else {
+        messanger("Not Correct");
+        inPlay = false;
+        playNum = 3;
+    }
+}
+
+function elementFactory(elementType) {
+    return document.createElement(elementType);
+}
+
+window.addEventListener("load", setup);
