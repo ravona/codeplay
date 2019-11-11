@@ -1,0 +1,59 @@
+body {
+    background-color: rgba(50, 80, 50, 0.9);
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.diceGame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.players,
+.rolls {
+    font-family: roboto, sans-serif;
+    color: wheat;
+}
+
+.players {
+    padding-right: 10px;
+}
+
+.rolls {
+    padding-left: 10px;
+    font-size: 40px;
+    line-height: 30px
+}
+
+.roll {
+    margin: 0 auto;
+    display: block;
+    color: black;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px;
+    background-color: crimson;
+    font-weight: bold;
+    outline: 0;
+    border: 0;
+    font-size: 18px;
+}
+
+.roll:hover {
+    background-color: #dedede;
+}
+
+.winner {
+    display: none;
+    border: 2px dashed white;
+    padding: 10px;
+    justify-content: center;
+    margin: 20px auto;
+    width: 220px;
+    font-size: 18px;
+    color: #a58d00;
+    font-weight: bold;
+}
