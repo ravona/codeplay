@@ -33,7 +33,6 @@ function positionReset() {
 }
 
 function handleOffset() {
-    console.log(counter);
     counter++;
 
     if (counter === 5) {
