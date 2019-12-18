@@ -17,7 +17,12 @@ function updateOffset() {
     unclickableButton.style.top = offset.y + "%";
 }
 
+function changeBackgroundColor() {
+    unclickableButton.style.backgroundColor = "crimson";
+}
+
 unclickableButton.addEventListener("mouseover", updateOffset);
+unclickableButton.addEventListener("click", changeBackgroundColor);
 
 
 setInterval(updateOffset, 500);
