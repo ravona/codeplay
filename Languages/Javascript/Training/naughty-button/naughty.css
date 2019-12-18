@@ -1,0 +1,63 @@
+html {
+    height: 100%;
+    background-color: #171717;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: #4eb5f1;
+    font-family: 'Roboto', sans-serif;
+    top: 0;
+    position: absolute;
+    opacity: 0.3;
+}
+
+.wrapper {
+    position: relative;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    padding: 50px;
+}
+
+.unclickable {
+    cursor: pointer;
+    position: absolute;
+    top: 250px;
+    transition: all 0.2s ease;
+    font-size: 28px;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    border: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+    background-color: #4eb5f1;
+    text-align: center;
+    box-shadow: 0 0 5px #4eb5f1;
+    animation: wiggle 1s ease-in-out 3s infinite both running;
+    white-space: nowrap;
+}
+
+@keyframes wiggle {
+    0% {transform: rotate(0deg);}
+    2.5% {transform: rotate(-10deg);}
+    5% {transform: rotate(20deg);}
+    7.5% {transform: rotate(-5deg);}
+    10% {transform: rotate(10deg);}
+    15% {transform: rotate(0deg);}
+    100% {transform: rotate(0deg);}
+}
+
