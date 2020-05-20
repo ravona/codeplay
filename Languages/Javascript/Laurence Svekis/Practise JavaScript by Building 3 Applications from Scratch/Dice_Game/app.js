@@ -14,8 +14,9 @@ class Player {
   }
 }
 
-function renderItem(element, data) {
+function renderItem(element, data, style) {
   let item = document.createElement("div");
+  item.className = style;
   let itemContent = document.createTextNode(data);
   item.appendChild(itemContent);
   element.appendChild(item);
@@ -39,24 +40,20 @@ function resetGame() {
 }
 
 function handleRollClick() {
-  const results = [];
-  let result;
-  result = document.createTextNode(result);
-  let highestRoll = 0;
-  let winningPlayer = '';
-  winner.style.display = "flex";
-
   if (!numberOfPlayers) {
     numberOfPlayers = prompt("How many players?");
   }
 
   resetGame();
 
+  let highestRoll = 0;
+  let winningPlayer = '';
+  winner.style.display = "flex";
+
   for (let i = 1; i <= numberOfPlayers; i++) {
     let currentPlayer = new Player(`Player ${i}`, getRandomInt(6));
-    renderItem(players, currentPlayer.index);
-    renderItem(rolls, formatResult(currentPlayer.roll));
-    results.push(currentPlayer.roll);
+    renderItem(players, currentPlayer.index, 'player-index');
+    renderItem(rolls, formatResult(currentPlayer.roll), 'player-roll');
 
     if (currentPlayer.roll > highestRoll) {
       highestRoll = currentPlayer.roll;
