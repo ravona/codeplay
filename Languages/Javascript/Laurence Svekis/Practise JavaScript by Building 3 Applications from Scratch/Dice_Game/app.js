@@ -1,29 +1,30 @@
 "use strict";
 
-const rollBtn = document.querySelector(".roll");
+const rollBtn = document.querySelector("#roll");
 let players = document.querySelector("#players");
 let rolls = document.querySelector("#rolls");
 let winner = document.querySelector("#winner");
 let title = document.querySelector(".title");
 let numberOfPlayers = 0;
 
-class Player {
-  constructor(index, roll) {
-    this.index = index;
-    this.roll = roll;
-  }
-}
-
-function renderItem(element, data, style) {
+// utility functions:
+function renderItem(element, content, style) {
   let item = document.createElement("div");
   item.className = style;
-  let itemContent = document.createTextNode(data);
+  let itemContent = document.createTextNode(content);
   item.appendChild(itemContent);
   element.appendChild(item);
 }
 
 function getRandomInt(num) {
   return Math.floor(Math.random() * num + 1);
+}
+
+class Player {
+  constructor(index, roll) {
+    this.index = index;
+    this.roll = roll;
+  }
 }
 
 function formatResult(rollNumber) {
@@ -47,13 +48,13 @@ function handleRollClick() {
   resetGame();
 
   let highestRoll = 0;
-  let winningPlayer = '';
+  let winningPlayer = "";
   winner.style.display = "flex";
 
   for (let i = 1; i <= numberOfPlayers; i++) {
     let currentPlayer = new Player(`Player ${i}`, getRandomInt(6));
-    renderItem(players, currentPlayer.index, 'player-index');
-    renderItem(rolls, formatResult(currentPlayer.roll), 'player-roll');
+    renderItem(players, currentPlayer.index, "player-index");
+    renderItem(rolls, formatResult(currentPlayer.roll), "player-roll");
 
     if (currentPlayer.roll > highestRoll) {
       highestRoll = currentPlayer.roll;
@@ -63,7 +64,7 @@ function handleRollClick() {
     }
   }
 
-  let roundWinner = document.createTextNode(winningPlayer + " wins");
+  let roundWinner = document.createTextNode(winningPlayer + " wins!");
   winner.appendChild(roundWinner);
 }
 
