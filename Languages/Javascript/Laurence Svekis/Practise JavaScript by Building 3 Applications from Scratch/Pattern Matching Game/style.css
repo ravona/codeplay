@@ -1,53 +1,56 @@
 body {
-    text-align: center;
+  text-align: center;
+  margin: 0;
 }
 
 .wrapper {
-    border: 1px dashed #101010;
-    width: 50%;
-    margin: 0 auto;
-    padding: 5%;
+  border: 1px dashed #101010;
+  width: 50%;
+  margin: 0 auto;
+  padding: 5%;
 }
 
 .gameArea {
-    height: 200px;
-    width: 200px;
-    border: 1px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px auto;
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .box {
-    width: 50%;
-    height: 50%;
-    color: black;
-    text-align: center;
+  width: 50%;
+  height: 50%;
+  color: black;
+  text-align: center;
+  cursor: pointer;
 }
 
 .button {
-    padding: 10px 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    background-color: burlywood;
-    border: 0;
-    box-shadow: 2px 2px 2px #dedede;
-    cursor: pointer;
-    transition: 0.5s;
-    margin: 0 auto;
+  padding: 10px 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: burlywood;
+  border: 0;
+  box-shadow: 2px 2px 2px #dedede;
+  cursor: pointer;
+  transition: 0.5s;
+  margin: 0 auto;
 }
 
 .button:hover {
-    background-color: saddlebrown;
-    color: white;
-    transition: 0.5s;
+  background-color: saddlebrown;
+  color: white;
+  transition: 0.5s;
 }
 
 .box--active {
-    opacity: 1;
+  opacity: 1;
 }
 
 .active {
-    border: 1px solid red;
-    color: red;
+  border: 1px solid red;
+  color: red;
 }
