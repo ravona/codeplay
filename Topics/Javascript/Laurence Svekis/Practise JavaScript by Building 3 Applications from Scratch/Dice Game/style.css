@@ -22,7 +22,7 @@ body {
   justify-content: space-around;
 }
 
-.diceGame {
+.game {
   color: var(--casino-text);
   display: flex;
   justify-content: center;
@@ -46,7 +46,13 @@ body {
   font-size: 2rem;
 }
 
-.roll {
+.controls {
+  display: flex;
+  justify-content: center;
+}
+
+.roll,
+.reset {
   font-family: "Squada One", cursive;
   font-size: 2rem;
   cursor: pointer;
@@ -56,7 +62,7 @@ body {
   outline: 0;
   border: 0;
   display: block;
-  margin: 0 auto;
+  margin: 0 1rem;
   padding: 0.5rem 2rem;
 }
 
@@ -64,8 +70,7 @@ body {
   background-color: var(--casino-action);
 }
 
-.winner {
-  display: none;
+.notificationElement {
   justify-content: center;
   color: var(--casino-info);
   font-weight: bold;

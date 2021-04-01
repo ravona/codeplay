@@ -1,15 +1,13 @@
 const message = document.querySelector(".message");
 const score = document.querySelector(".score");
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll(".button");
+
 let winner = [0, 0];
 
-for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", playGame);
-}
-
-function playGame(e) {
+const playGame = (e) => {
   let playerSelection = e.target.innerText;
   let computerSelection = Math.random();
+
   if (computerSelection < 0.34) {
     computerSelection = "Rock";
   } else if (computerSelection <= 0.67) {
@@ -17,6 +15,7 @@ function playGame(e) {
   } else {
     computerSelection = "Scissors";
   }
+
   let result = getWinner(playerSelection, computerSelection);
 
   if (result === "Player") {
@@ -27,19 +26,17 @@ function playGame(e) {
     winner[1]++;
   }
 
-  function messager(mes) {
-    message.innerHTML = mes;
+  function messager(text) {
+    message.innerHTML = text;
   }
 
   score.innerHTML = `Player: ${winner[0]} | Computer: ${winner[1]}`;
   messager(
     `Player chose <b>${playerSelection}</b><br/> Computer chose <b>${computerSelection}</b><br/> ${result}`
   );
-}
+};
 
-playGame();
-
-function getWinner(playerSelection, computerSelection) {
+const getWinner = (playerSelection, computerSelection) => {
   if (playerSelection === computerSelection) {
     return "Draw";
   }
@@ -67,6 +64,10 @@ function getWinner(playerSelection, computerSelection) {
       return "Player";
     }
   }
+};
+
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", playGame);
 }
 
 getWinner();

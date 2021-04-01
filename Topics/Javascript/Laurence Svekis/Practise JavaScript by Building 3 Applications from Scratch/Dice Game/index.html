@@ -2,26 +2,29 @@
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8" />
-    <title>Simple dice game</title>
-    <meta name="description" content="" />
+    <title>Simple dice game by Asaf Ravona</title>
+    <meta
+      name="description"
+      content="a simple dice game by Asaf Ravona. This is a Vanilla JS excercise"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
-    <meta name="theme-color" content="#fafafa" />
   </head>
 
   <body>
     <div class="wrapper">
       <h1 class="title">Casino JS</h1>
-      <div class="diceGame">
+      <div id="notificationElement" class="notificationElement"></div>
+      <div class="game">
         <div class="players" id="players"></div>
         <div class="rolls" id="rolls"></div>
       </div>
 
-      <div id="winner" class="winner"></div>
-
-      <button class="roll" id="roll">Roll</button>
+      <nav class="controls">
+        <button class="roll" id="roll">Roll</button>
+      </nav>
     </div>
 
-    <script src="app.js"></script>
+    <script src="game.js"></script>
   </body>
 </html>
