@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Squada+One&display=swap");
+
+:root {
+  --casino-primary: #325032;
+  --casino-secondary: #dc143c;
+  --casino-info: #a58d00;
+  --casino-action: lightblue;
+  --casino-text: #f5deb3;
+}
+
+body {
+  background-color: var(--casino-primary);
+  font-family: "Squada One", cursive;
+  margin: 0;
+}
+
+.wrapper {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.game {
+  color: var(--casino-text);
+  display: flex;
+  justify-content: center;
+}
+
+.players {
+  padding-right: 1rem;
+}
+
+.player-index,
+.player-roll {
+  line-height: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.player-roll {
+  font-size: 3rem;
+}
+
+.player-index {
+  font-size: 2rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+}
+
+.roll,
+.reset {
+  font-family: "Squada One", cursive;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px;
+  background-color: var(--casino-secondary);
+  font-weight: bold;
+  outline: 0;
+  border: 0;
+  display: block;
+  margin: 0 1rem;
+  padding: 0.5rem 2rem;
+}
+
+.roll:hover {
+  background-color: var(--casino-action);
+}
+
+.notificationElement {
+  justify-content: center;
+  color: var(--casino-info);
+  font-weight: bold;
+  font-size: 5rem;
+}
