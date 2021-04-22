@@ -1,49 +1,64 @@
-# mower class:
-#   properties:
-#       position: (x , y)
-#       orientation: N,E,W,S
-#   methods:
-#       move(an array of directions: [R,F,L,F])
-#       getPosition
-#       setPosition
-#       getOrientation
-#       setOrientation
-
-# lawn class:
-#   properties:
-#       size: (x=5, y=5) // grid of 5 X 5
-
 class Lawn:
-    def __init__(self, size) -> None:
-        self.size: list[int, int] = size
-        self.grid: list[[0 for x in range(self.size[0])]]
-    
-    def get_size(self):
-        print(f"grid size: {self.size[0]}")
+    def __init__(self, size):
+        self.size = size
+        self.grid = []
+        self.width = self.size[0]
+        self.length = self.size[1]
 
     def render_grid(self):
-        print(self.grid)
+        x_axis = [col for col in range(self.width)]
+        print(x_axis)
+        y_axis = [row for row in range(self.length)]
+        print(y_axis)
+        for i, y in enumerate(y_axis):
+            self.grid.append([])
+            for x in x_axis:
+                self.grid[i].append((x,y))
 
-
+        self.grid = reversed(self.grid)
+        for row in self.grid:
+            print(row)
 
 class Mower:
-    def __init__(self, position, orientation, directions) -> None: 
-        self.position: list[int, int] = [0, 0]
-        self.orientation: str() = orientation
-        self.directions: str() = directions
-    
-    def move(self):
-        for step in self.directions:
-            print(step)
+    def __init__(self, position, orientation, directions):
+        self._position = position
+        self._orientation = orientation
+        self._directions = directions
 
-mower1 = Mower([1,2],"N","LFLFLFLFF")
-print('current mower position: ', mower1.position)
-print('current mower orientation: ', mower1.orientation)
-print('mower directions: ', mower1.directions)
+    def get_position(self):
+        return self._position
+
+    def set_position(self, position):
+        self._position = position
+
+    def get_orientation(self):
+        return self._orientation
+
+    def set_orientation(self, orientation):
+        self._orientation = orientation
+
+    def get_directions(self):
+        return self._directions
+
+    def move(self):
+        for step in self._directions:
+            if step=="F":
+                print('moving forward', self.get_position())
+            else:
+                self.set_orientation(step)
+                new_orientation = self.get_orientation()
+                print('new orientation', new_orientation)
+
+
+
+mower1 = Mower(position=[1, 2], orientation="N", directions="LFLFLFLFF")
 mower1.move()
+print(f"mower directions: {mower1.get_directions()}")
+print(f"current mower position: {mower1.get_position()}")
+print(f"current mower orientation: {mower1.get_orientation()}")
+
 
 lawn1 = Lawn([5, 4])
-print(lawn1.get_size())
 print(lawn1.render_grid())
 
 # TEST
