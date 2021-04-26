@@ -1,11 +1,11 @@
-from Lawn import Lawn
-from Mower import Mower
+from lawn import Lawn
+from mower import Mower
 
 lawn = Lawn(width=5, length=5)
 lawn.render_grid()
 
 mower1 = Mower(position=[1, 2], orientation="N", directions=list("LFLFLFLFF"), lawn=lawn)
-mower2 = Mower(position=[3, 3], orientation="E", directions=list("FFRFFRFRRF"), lawn=lawn )
+mower2 = Mower(position=[3, 3], orientation="E", directions=list("FFRFFRFRRF"), lawn=lawn)
 
 mower1.move()
 print(f"final mower1 position: {mower1.get_position()}")

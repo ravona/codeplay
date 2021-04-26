@@ -1,9 +1,7 @@
-from Lawn import Lawn
+from lawn import Lawn
 
-
-class Mower(Lawn):
-    def __init__(self, position, orientation, directions, lawn) -> None:
-        # how can I define and validate that "position" is expected to be an array of 2 ints only?
+class Mower:
+    def __init__(self, position: [int, int], orientation: str, directions: list, lawn: Lawn) -> None:
         self._position = position
         self._orientation = orientation
         self._directions = directions
@@ -25,10 +23,9 @@ class Mower(Lawn):
         for step in self._directions:
             return step
 
-    def set_next_position(self):
+    def set_next_position(self, orientation):
         [x, y] = self._position
 
-        # how can I refer to object lawn without hard coding?
         next_position = {
             "N": [x, min(self._lawn.length, y + 1)],
             "E": [min(self._lawn.width, x + 1), y],
@@ -36,7 +33,7 @@ class Mower(Lawn):
             "W": [max(0, x - 1), y],
         }
 
-        self.set_position(next_position[self._orientation])
+        self._position = next_position[orientation]
 
     def set_next_orientation(self, step):
         turn = {
@@ -64,10 +61,10 @@ class Mower(Lawn):
             # if step is forward (F):
             # only the position changes, so get the next position
             if step == "F":
-                self.set_next_position()
+                self.set_next_position(self._orientation)
             # if step is left (L) or right (R):
             # only the orientation changes, so get the next orientation
             elif step == "L" or "R":
                 self.set_next_orientation(step)
             else:
-                "Error in step input"
+                print("Error in step input")
