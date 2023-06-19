@@ -1,0 +1,1 @@
+export const getArrayOfNumbers = (max) => [...Array(max)].map((v, i) => i + 1);

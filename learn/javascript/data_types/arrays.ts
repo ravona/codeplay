@@ -1,4 +1,3 @@
-// Array (a.k.a list)
 const shakeIngredients = ["banana", "mango", "strawberry"];
 console.log(shakeIngredients);
 
