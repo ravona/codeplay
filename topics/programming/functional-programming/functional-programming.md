@@ -1,14 +1,10 @@
 # Functional Programming (FP)
 
-## Intro
-
 ### What is functional programming?
 
 Functional programming is a programming paradigm where programs are constructed by composing independent functions together to produce some desired result.
 
 Some well knows FP languages include: Clojure, Erlang, Haskell, and Scala
-
-_mnemonic_: imagine you are the owner and CEO of a successful shoe factory called "FP Shoes" inc. Each worker is fulfilling a function at the production line and passes the result of his work to the next worker until the shoes are packed and ready to be shipped.
 
 ### What are the benefits or applying FP to your project?
 
@@ -20,12 +16,6 @@ Programs that are written in a functional style usually tend to be:
 1. Easier to test
 
 - Easier than projects written in procedural style or object-oriented (OOP)
-
-_mnemonic_: Victor, Lisa and John are employees at "functional shoes inc". This is how our imaginary shoes are made:
-
-1. Victor shapes leather sheets to shoes on a heat press and gives it to Lisa
-1. Lisa glues the soles and passes the shoes to John
-1. John packs the shoes he got from Lisa in a shoebox with laces
 
 This clear division of responsibility between our beloved employees on the production line, helps us to manage this factory. We'll come back to this example to see why.
 
