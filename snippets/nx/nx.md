@@ -19,3 +19,7 @@ nx generate @nx/react:application my-react-app --bundler=vite
 ```js
 nx generate @nx/js:lib shared-styles --bundler=vite
 ```
+
+```js
+nx g @nx/js:library shared-functions --directory=libs
+```

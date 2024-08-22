@@ -1,108 +1,101 @@
-type Position = { x: number; y: number }; // {x, y}
-type Orientation = "N" | "E" | "S" | "W"; // North, East, South, West
-type Direction = "R" | "L"; // Right, Left
-type Step = Direction | "F"; // Right, Left, Forward
+type Position = { x: number; y: number };
+type Orientation = "N" | "E" | "S" | "W";
+type Direction = "R" | "L";
+type Step = Direction | "F";
 
-const instructions: string = "FFFRFRF";
-const initialPosition: Position = { x: 0, y: 0 };
-const initialOrientation: Orientation = "N";
-const grid = 5;
+type LawnMowerState = {
+  position: Position;
+  orientation: Orientation;
+};
 
-// When step value is "F"
-// Returns the delta position value based on the orientation
-const movesDictionary: Record<Orientation, Position> = {
+const MOVES: Record<Orientation, Position> = {
   N: { x: 0, y: 1 },
   E: { x: 1, y: 0 },
   S: { x: 0, y: -1 },
   W: { x: -1, y: 0 },
 };
 
-// When step value is "R" or "L"
-// Returns the new orientation after turning
-const turnsDictionary: Record<Orientation, Record<Direction, Orientation>> = {
+const TURNS: Record<Orientation, Record<Direction, Orientation>> = {
   N: { L: "W", R: "E" },
   E: { L: "N", R: "S" },
   S: { L: "E", R: "W" },
   W: { L: "S", R: "N" },
 };
 
-const parseInstructions = (instructions: string): string[] => {
-  return instructions.split("");
-};
+const parseInstructions = (instructions: string): Step[] =>
+  instructions.split("") as Step[];
 
-const isPositionWithinGrid = (position: Position, grid: number): boolean => {
-  return (
-    position.x >= 0 && position.x < grid && position.y >= 0 && position.y < grid
-  );
-};
+const isPositionWithinGrid = (position: Position, grid: number): boolean =>
+  position.x >= 0 && position.x < grid && position.y >= 0 && position.y < grid;
 
 const getNextPosition = (
   position: Position,
   orientation: Orientation
-): Position => {
-  const delta = movesDictionary[orientation];
-  return { x: position.x + delta.x, y: position.y + delta.y };
-};
+): Position => ({
+  x: position.x + MOVES[orientation].x,
+  y: position.y + MOVES[orientation].y,
+});
 
-const move = (position: Position, orientation: Orientation): Position => {
+const move = (
+  position: Position,
+  orientation: Orientation,
+  grid: number
+): Position => {
   const newPosition = getNextPosition(position, orientation);
   return isPositionWithinGrid(newPosition, grid) ? newPosition : position;
 };
 
-const turn = (orientation: Orientation, direction: Direction): Orientation => {
-  return turnsDictionary[orientation][direction];
+const turn = (orientation: Orientation, direction: Direction): Orientation =>
+  TURNS[orientation][direction];
+
+const executeStep = (
+  state: LawnMowerState,
+  step: Step,
+  grid: number
+): LawnMowerState => {
+  const stepActions: Record<Step, (s: LawnMowerState) => LawnMowerState> = {
+    F: (s) => ({
+      ...s,
+      position: move(s.position, s.orientation, grid),
+    }),
+    R: (s) => ({
+      ...s,
+      orientation: turn(s.orientation, "R"),
+    }),
+    L: (s) => ({
+      ...s,
+      orientation: turn(s.orientation, "L"),
+    }),
+  };
+
+  const action = stepActions[step];
+  if (!action) {
+    throw new Error(`Invalid instruction: ${step}`);
+  }
+
+  return action(state);
 };
 
-class LawnMower {
-  private position: Position;
-  private orientation: Orientation;
-  private steps: string[];
+const getFinalPosition = (
+  initialState: LawnMowerState,
+  instructions: string,
+  grid: number
+): Position =>
+  parseInstructions(instructions).reduce(
+    (state, step) => executeStep(state, step, grid),
+    initialState
+  ).position;
 
-  constructor(
-    position: Position,
-    orientation: Orientation,
-    instructions: string
-  ) {
-    this.position = position;
-    this.orientation = orientation;
-    this.steps = parseInstructions(instructions);
-  }
+// Usage
+const instructions = "FFFRFRF";
+const initialPosition: Position = { x: 0, y: 0 };
+const initialOrientation: Orientation = "N";
+const grid = 5;
 
-  move() {
-    this.position = move(this.position, this.orientation);
-  }
-
-  turn(direction: Direction) {
-    this.orientation = turn(this.orientation, direction);
-  }
-
-  getPosition() {
-    return this.position;
-  }
-
-  getOrientation() {
-    return this.orientation;
-  }
-
-  getFinalPosition(): Position {
-    for (const step of this.steps) {
-      if (step === "F") {
-        this.move();
-      } else if (step === "R" || step === "L") {
-        this.turn(step);
-      } else {
-        throw new Error(`Invalid instruction: ${step}`);
-      }
-    }
-
-    return this.position;
-  }
-}
-
-const lawnMower = new LawnMower(
-  initialPosition,
-  initialOrientation,
-  instructions
+const finalPosition = getFinalPosition(
+  { position: initialPosition, orientation: initialOrientation },
+  instructions,
+  grid
 );
 
-console.log(lawnMower.getFinalPosition());
+console.log(finalPosition);
