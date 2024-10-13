@@ -3,7 +3,7 @@
 set -e
 
 MONOREPO_NAME="altrix"
-APPS=("dg" "reed" "vox")
+APPS=("showcase" "binge" "reed" "four-eyed-ninja" "go-figure")
 
 # Function to handle errors
 handle_error() {
@@ -37,7 +37,7 @@ cd ${MONOREPO_NAME} || handle_error "Failed to navigate to the new workspace"
 
 # Install dependencies
 echo "Installing dependencies..."
-bash ./dependencies.sh || handle_error "Failed to install dependencies"
+bash ../dependencies.sh || handle_error "Failed to install dependencies"
 
 # Update Nx workspace after installing dependencies
 echo "Resetting NX workspace"
@@ -46,36 +46,33 @@ reset_nx
 # Generate shared libraries
 echo "Generating shared libraries..."
 
-echo "Generating shared-styles library..."
-nx generate @nx/js:library shared-styles --bundler=vite --directory=libs/shared-styles --verbose || handle_error "Failed to generate shared-styles library"
+# Generate shell application
+echo "Generating shell application..."
+nx generate @nx/next:application shell --directory=apps/shell || handle_error "Failed to generate shell application"
 
+echo "Generating shared-styles library..."
+nx generate @nx/js:library shared-styles --directory=libs/shared-styles --verbose || handle_error "Failed to generate shared-styles library"
 
 echo "Generating shared-types library..."
-nx generate @nx/js:library shared-types --bundler=vite --directory=libs/shared-types --verbose || handle_error "Failed to generate shared-types library"
+nx generate @nx/js:library shared-types --directory=libs/shared-types --verbose || handle_error "Failed to generate shared-types library"
 
-
-echo "Generating shared-react library..."
-nx generate @nx/react:library shared-react --bundler=vite --directory=libs/shared-react --verbose || handle_error "Failed to generate shared-react library"
-
+echo "Generating framework-agnostic shared-ui library..."
+nx generate @nx/js:library shared-ui --directory=libs/shared-ui || handle_error "Failed to generate shared-ui library"
 
 echo "Generating shared-translations library..."
-nx generate @nx/react:library shared-translations --bundler=vite --directory=libs/shared-translations || handle_error "Failed to generate shared-translations library"
+nx generate @nx/js:library shared-translations --directory=libs/shared-translations || handle_error "Failed to generate shared-translations library"
 reset_nx
 
 # Generate applications and core libraries
 for APP in "${APPS[@]}"; do
-    echo "Generating applications and core library for ${APP}..."
+    echo "Generating application and core library for ${APP}..."
     
     # Generate core library
-    nx generate @nx/js:library core-${APP} --bundler=vite --directory=libs/core-${APP} || handle_error "Failed to generate core-${APP} library"
+    nx generate @nx/js:library core-${APP} --directory=libs/core-${APP} || handle_error "Failed to generate core-${APP} library"
     
-
-    # Generate client application
-    nx generate @nx/react:application ${APP}-client --bundler=vite --directory=apps/react/${APP}-client || handle_error "Failed to generate ${APP}-client application"
+    # Generate Next.js application (includes both client and server capabilities)
+    nx generate @nx/next:application ${APP} --directory=apps/next/${APP} || handle_error "Failed to generate ${APP} application"
     
-    
-    # Generate server application
-    nx generate @nx/express:application ${APP}-server --frontendProject="${APP}-client" --directory=apps/${APP}-server || handle_error "Failed to generate ${APP}-server application"
     reset_nx
 done
 

@@ -10,21 +10,19 @@ handle_error() {
 
 # Dev dependencies configuration
 DEV_DEPENDENCIES=(
-    "@nx/node @nx/react @nx/express @nx/vite @nx/webpack @nx/next"                   
-    "typescript @types/express @types/cors @types/pg"
+    "@nx/node @nx/react @nx/next"                   
+    "typescript @types/react @types/react-dom @types/pg"
     "@graphql-typed-document-node/core"
     "@tanstack/react-query-devtools"
     "sass"
     "prettier"
+    "eslint"
+    "eslint-config-next"
 )
 
 # Prod dependencies configuration
 PROD_DEPENDENCIES=(
     "@apollo/client"
-    "@apollo/server"
-    "express"
-    "cors"
-    "body-parser"
     "graphql"
     "pg"
     "dotenv"
@@ -34,10 +32,7 @@ PROD_DEPENDENCIES=(
     "yup"
     "react-hook-form"
     "@hookform/resolvers"
-    "i18next"
-    "react-i18next"
-    "i18next-http-backend"
-    "i18next-browser-languagedetector"
+    "next-i18next"
 )
 
 # Function to install dependencies
