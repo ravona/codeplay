@@ -11,5 +11,10 @@ podman build --no-cache -t your-image-name .
 ```
 
 ```bash
+podman rm -f $(podman ps -aq)  # Remove all existing containers
+```
+
+```bash
 podman system prune -a --volumes
+podman system prune --all
 ```
